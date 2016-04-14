@@ -1,0 +1,33 @@
+SIFT
+siftpp_tgi.exe 0624900-6854400-040_Casqyb_08_LAMB93_1.tif [--first-octave 0] --verbose
+
+correlation
+correlation --image1 0624900-6854400-040_Casqyb_07_LAMB93_0.tif 
+--image2 0624900-6854400-040_Casqyb_08_LAMB93_1.tif 
+--pts1 0624900-6854400-040_Casqyb_07_LAMB93_0.maskharris 
+--pts2 0624900-6854400-040_Casqyb_08_LAMB93_1.maskharris 
+--rayon_vignette10 
+--rayon_recherche 10 
+--result maskharris.result 
+--strategie point:point
+
+FiltrageMasque
+FiltrageMasque.exe --image 0624900-6854400-040_Casqyb_07_LAMB93_0.tif 
+--rayon 10 
+--kp:bin 0624900-6854400-040_Casqyb_07_LAMB93_0.key 
+--out 0624900-6854400-040_Casqyb_07_LAMB93_0.masque
+
+harris :
+modifier les valeurs du seuil et du coefficient de flou gaussien
+
+ann_lowe
+ann_lowe --kp1 0624900-6854400-040_Casqyb_07_LAMB93_0.key
+--kp2 0624900-6854400-040_Casqyb_08_LAMB93_1.key
+--result 0624900-6854400-040_Casqyb_08_LAMB93_1.result
+
+correlateur_image_entiere.exe --img1 0624900-6854400-040_Casqyb_07_LAMB93_0.tif
+--img2 0624900-6854400-040_Casqyb_08_LAMB93_1.tif
+--rayon_recherche 30 
+--export_score correlation.tif
+--export_imrec image_recale.tif
+coord1=coord2+(-2,3)
